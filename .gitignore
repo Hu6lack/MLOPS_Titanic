@@ -1,0 +1,18 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Airflow logs
+logs/
+*.log
+
+# DVC cache (optional - can be ignored)
+.dvc/cache/
+
+# Monitoring local config
+monitoring/prometheus/prometheus.yml
+
+# IDE
+.vscode/
+.idea/
