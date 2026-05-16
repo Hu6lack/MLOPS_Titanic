@@ -131,6 +131,25 @@ def task_training(**context) -> None:
 
 
 def task_monitoring(**context) -> None:
+    """Tâche 4 : Monitoring avec Evidently"""
+    import subprocess
+    from pathlib import Path
+
+    script_path = Path("/opt/airflow/src/monitoring/5_monitoring.py")  # ou monitoring/5_monitoring.py
+    if not script_path.exists():
+        script_path = Path("/opt/airflow/monitoring/5_monitoring.py")
+
+    try:
+        result = subprocess.run(["python", str(script_path)], 
+                              capture_output=True, text=True, cwd="/opt/airflow")
+        print(result.stdout)
+        if result.returncode != 0:
+            print("Error:", result.stderr)
+            raise Exception("Monitoring script failed")
+        logger.info("✅ Monitoring task completed successfully")
+    except Exception as e:
+        logger.error("Monitoring failed: %s", e)
+        raise
     """Tâche 4 : Génère le rapport de drift Evidently AI."""
     import pandas as pd
     from pathlib import Path
