@@ -5,7 +5,7 @@
 import logging
 from pathlib import Path
 from typing import Tuple
-
+from great_expectations_setup import setup_expectations
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -151,6 +151,13 @@ def preprocess() -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     validate_with_great_expectations(df)
 
     X_train, X_test, y_train, y_test = split(df)
+    
+    # === Great Expectations Validation ===
+    print("🔍 Validation avec Great Expectations...")
+    setup_expectations()
+    
+    # Validation sur les données nettoyées
+    validate_with_great_expectations(df)
 
     train = X_train.copy(); train["Survived"] = y_train.values
     test  = X_test.copy();  test["Survived"]  = y_test.values

@@ -92,3 +92,12 @@ git commit -m "Versionnage des données avec DVC"
 - [ ] Grafana : dashboard monitoring
 - [ ] GitHub Actions : pipeline CI/CD vert
 - [ ] Terminal : pytest tests/ -v (7 tests PASSED)
+
+# Dans le terminal (à la racine du projet)
+pip install dvc
+
+dvc init --subdir
+dvc add data/train.csv data/test.csv data/titanic_raw.csv
+
+git add .dvc/config data/.gitignore *.dvc
+git commit -m "feat: add DVC for data versioning"
